@@ -1,1 +1,13 @@
 Explain the code execution based on the order of the messages logged in src/quiz/promise-2darray.txt.
+
+So we call the function sum2DArray() first on the actual 2D array. When we do this we get a "Sum called ..." message.
+We then return from this call because in the if branch we call a setTimeout() function. When we do this we are scheduling everything
+within the setTimeout() function to be executed aysynchronously on a different call stack.
+So we schedule to execute this code later which means that we can continue executing the rest of the code.
+Since we are doing matrix addition this aysynchronous call will take some time to complete.
+So then we get a "returning from sum" message since we skipped the execution of the if branch. We then get a "Sum called ..." message
+that shows the second call to sum2DArray() with text as a parameter has been executed. We then get the message "rejecting ..."
+to show that the input parameter is incorrect and we went into the else branch. Since this code is not in a 
+setTimeout() function we execute now and do it synchronously. We then do "returning from sum" and catch the error to get
+"BAD INPUT: Expected array as input" and this finishes the second call to sum2DArray(). We then get a message saying
+"resolving ..." which means the matrix addition has completed after being executed. We then return the sum "45".
